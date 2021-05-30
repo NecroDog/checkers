@@ -1,19 +1,34 @@
+// Кнопка Новая игра
 const newGameBtn = document.querySelector('#new-game');
 newGameBtn.addEventListener('click', newGameClick);
 
+// Поля с текущей "стороной" и счетчик шашек
 const currentTurnText = document.querySelector('#current-turn');
 const count = document.querySelector('#count');
 
+// Размерность поля
 const gridSizeX = 8;
 const gridSizeY = 8;
+
+// Добавляем ячейки на доску
 const cells = createCells();
 
+// Текущий ход (black или white)
 let currentTurn = '';
+
+// Выбранная шашка
 let selectedChecker = null;
+
+// Признак продолжения хода, когда есть кого убивать
 let continueTurn = false;
 
+// Объект с массивами шашек черных и белых
 let checkers;
+
+// Доступные для перемещения ячейки (заполняется при выборе шашки)
 let allowedCells;
+
+// Доступные для убийства шашки (заполняется при наведении на доступную ячейку)
 let canBeKilled;
 
 function newGameClick() {
@@ -30,6 +45,7 @@ function newGameClick() {
 
 function startNewGame() {
 
+    // Удаляем шашки из документа
     if (checkers) {
 
         whites = checkers.whites;
@@ -45,7 +61,9 @@ function startNewGame() {
 
     }
 
+    // Создаем шашки
     checkers = createChekers();
+
     allowedCells = [];
     canBeKilled = [];
 
@@ -148,9 +166,11 @@ function cellClick() {
 
 function checkerClick() {
 
+    // Сбрасываем подсвеченные ячейки и выделяем выбранную шашку
     clearAllowedCells();
     markSelectedChecker(this);
 
+    // Шашка, на которую нажали, могла быть не выбрана (например из-за того, что она "вражеская")
     if (this.classList.contains('selected')) {
 
         allowedCells = getAllowedCells(this);
@@ -216,6 +236,7 @@ function allowedMouseLeave(e) {
 
 }
 
+// Отмечает доступные шашке ячейки
 function markAllowedCells(array) {
 
     const flatened = array.flat(5);
@@ -232,6 +253,7 @@ function markAllowedCells(array) {
 
 }
 
+// Получает содержимое всех диагоналей относительно выбранной шашки
 function getDiagonals(checker) {
 
     let diagonals = [];
@@ -251,6 +273,7 @@ function getDiagonals(checker) {
             let position = [row + j * offsets[i][0], cell + j * offsets[i][1]];
             let tile = getCellByPosition(position);
 
+            // Ячейка могла быть не найдена (выходит за пределы доски)
             if (tile) {
                 diagonal.push(tile);
             }
