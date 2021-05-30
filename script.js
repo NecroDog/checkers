@@ -103,6 +103,14 @@ function cellClick() {
         allowedCells = null;
         clearAllowedCells();
 
+        if (checkers.whites.length === 0) {
+            alert('Blacks win! Hail blacks!');
+            return;
+        } else if (checkers.blacks.length === 0) {
+            alert('Whites win! Hail whites!');
+            return;
+        }
+
         markSelectedChecker(selectedChecker);
 
         // Проверим, может ли шашка продолжить движение
@@ -421,7 +429,7 @@ function markSelectedChecker(item) {
     if (item.classList.contains(currentTurn)) {
 
         if (continueTurn && item != selectedChecker) {
-            alert('Завершите ход!');
+            alert('End your current turn!');
         } else {
 
             const selected = document.querySelectorAll('.selected');
@@ -436,7 +444,7 @@ function markSelectedChecker(item) {
         }
 
     } else {
-        alert('Сейчас ходит другая сторона!');
+        alert('It is opposite side turn!');
     }
 
 }
