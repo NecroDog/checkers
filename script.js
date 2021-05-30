@@ -34,33 +34,25 @@ function cellClick() {
 
         let wasKilled = false;
 
-        // Убиваем вражескую шашку, если таковая имеется
-        for (let i = 0; i < allowedCells.length; i++) {
+        for (let i = 0; i < canBeKilled.length; i++) {
 
-            let array = allowedCells[i];
+            let doomed = canBeKilled[0];
+            let parent = doomed.parentElement;
 
-            let curCell = array[0];
-            let dead = array[1];
+            parent.removeChild(doomed);
 
-            if (curCell === this && dead) {
+            let curArray = null;
+            if (doomed.classList.contains('white')) {
+                curArray = checkers.whites;
+            } else {
+                curArray = checkers.blacks;
+            };
 
-                const parent = dead.parentElement;
-                parent.removeChild(dead);
+            for (let j = 0; j < curArray.length; j++) {
 
-                let curArray = null;
-                if (dead.classList.contains('white')) {
-                    curArray = checkers.whites;
-                } else {
-                    curArray = checkers.blacks;
-                };
-
-                for (let i = 0; i < curArray.length; i++) {
-
-                    if (dead === curArray[i]) {
-                        curArray.splice(i, 1);
-                        wasKilled = true;
-                    };
-
+                if (doomed === curArray[j]) {
+                    curArray.splice(j, 1);
+                    wasKilled = true;
                 };
 
             };
@@ -233,7 +225,7 @@ function getContainingChecker(cell) {
     return null;
 }
 
-function getAllowedCells(checker) {
+function getAllowedCells(checker, onlyKill = false) {
 
     const diagonals = getDiagonals(checker);
     const isQueen = checker.classList.contains('queen');
@@ -280,7 +272,7 @@ function getAllowedCells(checker) {
             };
 
             // Если впереди нет шашки, то всегда разрешено
-            if (isForward && !containingChecker) {
+            if (isForward && !containingChecker && !onlyKill) {
                 prevChecker = null;
                 currentAllowed.push([cell, null]);
                 if (!isQueen) {
