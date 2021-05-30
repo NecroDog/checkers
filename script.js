@@ -2,15 +2,42 @@ const gridSizeX = 8;
 const gridSizeY = 8;
 const cells = createCells();
 
-let currentTurn = 'white';
+let currentTurn = '';
 let selectedChecker = null;
 let continueTurn = false;
 
-let checkers = createChekers();
+let checkers;
 let allowedCells;
-let canBeKilled = [];
+let canBeKilled;
 
-addEventListeners();
+startNewGame();
+
+function startNewGame() {
+
+    if (checkers) {
+
+        whites = checkers.whites;
+        blacks = checkers.blacks;
+
+        whites.forEach(checker => {
+            checker.remove();
+        });
+
+        blacks.forEach(checker => {
+            checker.remove();
+        });
+
+    }
+
+    checkers = createChekers();
+    allowedCells = [];
+    canBeKilled = [];
+
+    currentTurn = 'white';
+
+    addEventListeners();
+
+}
 
 function cellClick() {
 
@@ -58,14 +85,20 @@ function cellClick() {
 
             };
         };
+
         canBeKilled = [];
         allowedCells = null;
         clearAllowedCells();
 
         markSelectedChecker(selectedChecker);
 
-        // Проверим, может ли шашка продолжить движение для убийства
-        allowedCells = getAllowedCells(selectedChecker, true);
+        // Проверим, может ли шашка продолжить движение
+        if (becameQueen) {
+            allowedCells = getAllowedCells(selectedChecker);
+        } else {
+            allowedCells = getAllowedCells(selectedChecker, true);
+        };
+
         if (allowedCells.length && wasKilled || becameQueen) {
 
             continueTurn = true;
