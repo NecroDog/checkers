@@ -1,3 +1,6 @@
+const newGameBtn = document.querySelector('#new-game');
+newGameBtn.addEventListener('click', newGameClick);
+
 const gridSizeX = 8;
 const gridSizeY = 8;
 const cells = createCells();
@@ -10,7 +13,17 @@ let checkers;
 let allowedCells;
 let canBeKilled;
 
-startNewGame();
+function newGameClick() {
+
+    const mainMenu = document.querySelector('#main-menu');
+    mainMenu.classList.add('hidden');
+
+    const container = document.querySelector('.container');
+    container.classList.remove('hidden');
+
+    startNewGame();
+
+}
 
 function startNewGame() {
 
