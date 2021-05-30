@@ -10,8 +10,6 @@ let checkers = createChekers();
 let allowedCells;
 let canBeKilled = [];
 
-checkers.whites[0].classList.add('queen');
-
 addEventListeners();
 
 function cellClick() {
@@ -34,31 +32,33 @@ function cellClick() {
 
         let wasKilled = false;
 
-        for (let i = 0; i < canBeKilled.length; i++) {
+        if (canBeKilled) {
+            for (let i = 0; i < canBeKilled.length; i++) {
 
-            let doomed = canBeKilled[0];
-            let parent = doomed.parentElement;
+                let doomed = canBeKilled[0];
+                let parent = doomed.parentElement;
 
-            parent.removeChild(doomed);
+                parent.removeChild(doomed);
 
-            let curArray = null;
-            if (doomed.classList.contains('white')) {
-                curArray = checkers.whites;
-            } else {
-                curArray = checkers.blacks;
-            };
+                let curArray = null;
+                if (doomed.classList.contains('white')) {
+                    curArray = checkers.whites;
+                } else {
+                    curArray = checkers.blacks;
+                };
 
-            for (let j = 0; j < curArray.length; j++) {
+                for (let j = 0; j < curArray.length; j++) {
 
-                if (doomed === curArray[j]) {
-                    curArray.splice(j, 1);
-                    wasKilled = true;
+                    if (doomed === curArray[j]) {
+                        curArray.splice(j, 1);
+                        wasKilled = true;
+                    };
+
                 };
 
             };
-
-        }
-
+        };
+        canBeKilled = [];
         allowedCells = null;
         clearAllowedCells();
 
@@ -252,6 +252,9 @@ function getAllowedCells(checker, onlyKill = false) {
 
             // Ходить на вражескую всегда запрещено
             if (containingChecker) {
+                if (prevChecker) {
+                    break;
+                }
                 prevChecker = containingChecker;
                 continue;
             };
@@ -278,6 +281,10 @@ function getAllowedCells(checker, onlyKill = false) {
                 if (!isQueen) {
                     break;
                 };
+            } else {
+                if (!isQueen) {
+                    break;
+                };
             };
 
         };
@@ -297,7 +304,7 @@ function getAllowedCells(checker, onlyKill = false) {
         const parentCell = checker.parentElement;
 
         if (currentTurn === 'white') {
-            if (parentCell.id > cell.id) {
+            if (+parentCell.id > cell.id) {
                 return true;
             } else {
                 return false;
