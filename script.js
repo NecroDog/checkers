@@ -1,6 +1,9 @@
 const newGameBtn = document.querySelector('#new-game');
 newGameBtn.addEventListener('click', newGameClick);
 
+const currentTurnText = document.querySelector('#current-turn');
+const count = document.querySelector('#count');
+
 const gridSizeX = 8;
 const gridSizeY = 8;
 const cells = createCells();
@@ -49,7 +52,13 @@ function startNewGame() {
     currentTurn = 'white';
 
     addEventListeners();
+    updateGameStats();
 
+}
+
+function updateGameStats() {
+    currentTurnText.textContent = currentTurn;
+    count.textContent = `${checkers.whites.length} \/ ${checkers.blacks.length}`;
 }
 
 function cellClick() {
@@ -131,6 +140,8 @@ function cellClick() {
             continueTurn = false;
             setNextPlayer();
         }
+
+        updateGameStats();
 
     }
 }

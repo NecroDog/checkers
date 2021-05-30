@@ -63,6 +63,10 @@ body {
     margin-top: 40px;
 }
 
+#open-menu:hover {
+    background: rgb(27, 27, 27);
+}
+
 .hidden {
     display: none !important;
 }
@@ -156,6 +160,21 @@ body {
 
 #game-stats {
     display: flex;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: rgba(187, 123, 39, 0.8);
+    border-radius: 10px;
+}
+
+#game-stats .block-stats {
+    display: flex;
+    padding: 0 10px;
+}
+
+#game-stats .block-stats p, #game-stats .block-stats span {
+    color: #fff;
+    font-size: 20px;
+    text-transform: uppercase;
 }
 
 @media(max-width: 768px) {
