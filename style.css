@@ -1,0 +1,91 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chess-board {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    height: 800px;
+    width: 800px;
+    border-style: solid;
+    border-width: 50px;
+    border-color: rgb(92, 42, 7);
+}
+
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    border: 0;
+}
+
+.cell-white {
+    background-color: rgb(256, 205, 114);
+}
+
+.cell-black {
+    background-color: rgb(130, 81, 0);
+}
+
+.cell-allowed {
+    box-shadow: inset 0 0 0.5em rgb(36, 236, 36);
+    cursor: pointer;
+}
+
+.checker {
+    height: 80%;
+    width: 80%;
+    border-radius: 50%;
+    box-shadow: 3px 3px 3px 2px black;
+    position: relative;
+}
+
+.dead::before {
+    position: absolute;
+    background-color: rgb(255, 0, 0, 0.7);
+    height: 100%;
+    width: 100%;
+    content: '';
+    border-radius: 50%;
+}
+
+.selected {
+    transform: scale(1.1, 1.1) translate(-8px, -8px);
+    box-shadow: 5px 5px 2px 2px black;
+}
+
+.checker:hover {
+    cursor: pointer;
+}
+
+.black {
+    background-color: rgb(41, 41, 41);
+}
+
+.white {
+    background-color: rgb(218, 218, 218);
+}
+
+.queen::after {
+    content: '';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: 95%;
+    width: 95%;
+    border-radius: 50%;
+    margin: 2px 2px;
+    box-shadow: inset 5px 0px 5px 5px rgb(0, 0, 0);
+}
