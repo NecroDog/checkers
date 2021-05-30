@@ -149,8 +149,8 @@ body {
         font-size: 2rem;
     }
     .chess-board {
-        height: 500px;
-        width: 500px;
+        height: 400px;
+        width: 400px;
         border-width: 20px;
     }
 }
