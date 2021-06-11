@@ -92,7 +92,7 @@ function cellClick() {
 
         let becameQueen = false;
 
-        if (this.classList.contains('cell-queen')) {
+        if (this.classList.contains('cell-queen') && !selectedChecker.classList.contains('queen')) {
             selectedChecker.classList.add('queen');
             becameQueen = true;
         }
