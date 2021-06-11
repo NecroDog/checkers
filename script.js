@@ -90,8 +90,10 @@ function cellClick() {
         cell.removeChild(selectedChecker);
         this.appendChild(selectedChecker);
 
+        // Проверяем, станет ли шашка дамкой
         let becameQueen = false;
 
+        // Если это край доски и шашка не дамка, то шашка становится дамкой
         if (this.classList.contains('cell-queen') && !selectedChecker.classList.contains('queen')) {
             selectedChecker.classList.add('queen');
             becameQueen = true;
